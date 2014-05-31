@@ -9,8 +9,18 @@ void setup() {
 void loop() {
   //BitCounter(5);
   //SendByte(1);
-  Send2Bytes(2,1);
+  //Send2Bytes(2,1);
+  Step(250); // Worked at 10
+  //delayMicroseconds(250);
 }
+
+void Step(int delayTime){
+  SendByte(1);
+  delayMicroseconds(delayTime);
+  SendByte(3);
+  delayMicroseconds(delayTime);
+}
+
 
 void SendByte(int K)
 {
