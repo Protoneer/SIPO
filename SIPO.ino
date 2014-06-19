@@ -1,23 +1,34 @@
 #include <SPI.h>
 
 int PinSIPOSet = 10;
+// Clock =  13
+// Data  = 11
 
 void setup() {                
   SPI.begin(); 
 }
 
 void loop() {
-  //BitCounter(5);
-  //SendByte(1);
-  //Send2Bytes(2,1);
-  Step(250); // Worked at 10
+  //BitCounter(1000);
+  Step(100); // Worked at 10
   //delayMicroseconds(250);
 }
 
 void Step(int delayTime){
-  SendByte(1);
+
+  digitalWrite (PinSIPOSet, LOW);
+  SPI.transfer(1);
+  SPI.transfer(1);
+  SPI.transfer(1);
+  SPI.transfer(1);
+  digitalWrite (PinSIPOSet,  HIGH);
   delayMicroseconds(delayTime);
-  SendByte(3);
+  digitalWrite (PinSIPOSet, LOW);
+  SPI.transfer(3);
+  SPI.transfer(3);
+  SPI.transfer(3);
+  SPI.transfer(3);
+  digitalWrite (PinSIPOSet,  HIGH);
   delayMicroseconds(delayTime);
 }
 
