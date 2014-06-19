@@ -7,14 +7,55 @@ int PinSIPOSet = 10;
 // Used to set each bit with a bitwise or
 unsigned char hex[8]= {0x01  ,0x02  ,0x04  ,0x08  ,0x10  ,0x20  ,0x40  ,0x80};
 
-void setup() {                
-  SPI.begin(); 
-}
+/*
 
-void loop() {
-  NightRider();
-  //BitCounter(1000);
-  //Step(100); // Worked at 10
+P4
+P3
+P2
+P1
+4DIR
+4STEP
+4EN
+3DIR
+3STEP
+3EN
+2DIR
+2STEP
+2EN
+1DIR
+1STEP
+1EN
+
+*/
+
+typedef struct {
+  boolean P[4]; // Output Pins  
+  boolean EN[4];       // Enable Pins  
+  boolean STEP[4];     // Step Pins  
+  boolean DIR[4];      // Direction Pins
+} sipo_t;
+
+sipo_t SIPO;
+
+void SendSIPO()
+{
+    // Populate SIPO
+  for(int K=0;K<4;K++)
+  {
+    SIPO.P[K] = 1;
+  }
+
+  
+  int byte1 = 0;
+  int byte2 = 0;
+
+  if(SIPO.P[0]) byte2 = byte2 | hex[8-1];
+  if(SIPO.P[1]) byte2 = byte2 | hex[7-1];
+  if(SIPO.P[2]) byte2 = byte2 | hex[6-1];
+  if(SIPO.P[3]) byte2 = byte2 | hex[5-1];
+
+  Send2Bytes(0,byte2);
+ 
 }
 
 void NightRider()
@@ -75,3 +116,17 @@ void BitCounter(int waitTime){
     delay(waitTime);
   }
 }
+
+
+void setup() {                
+  SPI.begin(); 
+}
+
+void loop() {
+
+  //SendSIPO();
+  NightRider();
+  //BitCounter(1000);
+  //Step(100); // Worked at 10
+}
+
