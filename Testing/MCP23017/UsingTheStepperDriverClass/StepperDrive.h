@@ -5,20 +5,18 @@
 class StepperDrive
 {
 public:
-  StepperDrive(unsigned char I2CAddress);
-  void SendToBoard();
-  
-  
-  
-  
+  void InitHardware(unsigned char I2CAddress);
 
-  // SendCurrentSettings
-  // Set the 4 parts of the driver
+  void RefreshPortA();
+  void RefreshPortB();
 
-  void SetStepPins(bool pin1,bool pin2,bool pin3,bool pin4);
-  void SetDirectionPins(bool pin1,bool pin2,bool pin3,bool pin4);
-  void SetEnablePins(bool pin1,bool pin2,bool pin3,bool pin4);
-  void SetGPIOPins(bool pin1,bool pin2,bool pin3,bool pin4);
+  void SetStepPins(bool pin4,bool pin3,bool pin2,bool pin1);
+  void SetDirectionPins(bool pin4,bool pin3,bool pin2,bool pin1);
+  void SetEnablePins(bool pin4,bool pin3,bool pin2,bool pin1);
+  void SetGPIOPins(bool pin4,bool pin3,bool pin2,bool pin1);
+
+  unsigned char GetPortABits();
+  unsigned char GetPortBBits();
   
   
 private:
@@ -26,7 +24,6 @@ private:
   unsigned char _portA;
   unsigned char _portB;
   
-  void InitHardware();
   unsigned char SetBitInByte(unsigned char inByte,int bitToSet, bool bitValue);
   void Send(unsigned char registerAddress, unsigned char value);
 };

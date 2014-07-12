@@ -1,16 +1,14 @@
 #include "Wire.h"
 #include "StepperDrive.h"
 
-
-// Used to set each bit with a bitwise or
-//unsigned char hex[8]= {0x01  ,0x02  ,0x04  ,0x08  ,0x10  ,0x20  ,0x40  ,0x80};
-
-
+StepperDrive sd = StepperDrive();
 
 void setup()
 {
-  Serial.begin(9600);
-  Serial.println("Start");
+  //Serial.begin(9600);
+  //Serial.println("Start");
+  
+  sd.InitHardware(0x20);
 }
 
 void loop()
@@ -20,13 +18,14 @@ void loop()
 
 void TestStepperDrive()
 {
-  StepperDrive sd(0x20);
-  
   sd.SetStepPins(0,0,0,1);
-  sd.SendToBoard();
+  //Serial.println(sd.GetPortABits());
+  sd.RefreshPortA();
   delay(1000);
+  
   sd.SetStepPins(0,0,1,0);
-  sd.SendToBoard();
+  //Serial.println(sd.GetPortABits());
+  sd.RefreshPortA();
   delay(1000);
 }
 
