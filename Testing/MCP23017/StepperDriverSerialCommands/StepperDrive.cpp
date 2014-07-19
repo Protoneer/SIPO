@@ -33,10 +33,10 @@ void StepperDrive::SetDirectionPins(bool pin4,bool pin3,bool pin2,bool pin1)
 }
 void StepperDrive::SetEnablePins(bool pin4,bool pin3,bool pin2,bool pin1)
 {
-  _portB = SetBitInByte(_portB,0, pin1);
-  _portB = SetBitInByte(_portB,1, pin2);
-  _portB = SetBitInByte(_portB,2, pin3);
-  _portB = SetBitInByte(_portB,3, pin4);
+  _portB = SetBitInByte(_portB,0, !pin1);
+  _portB = SetBitInByte(_portB,1, !pin2);
+  _portB = SetBitInByte(_portB,2, !pin3);
+  _portB = SetBitInByte(_portB,3, !pin4);
 }
 void StepperDrive::SetGPIOPins(bool pin4,bool pin3,bool pin2,bool pin1)
 {
